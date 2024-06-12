@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const authorRoutes_1 = __importDefault(require("./authorRoutes"));
+const bookRoutes_1 = __importDefault(require("./bookRoutes"));
+const userRoutes_1 = __importDefault(require("./userRoutes"));
+const reviewRoutes_1 = __importDefault(require("./reviewRoutes"));
+const ratingRoutes_1 = __importDefault(require("./ratingRoutes"));
+const paymentRoutes_1 = __importDefault(require("./paymentRoutes"));
+const router = (0, express_1.Router)();
+router.use('/authors', authorRoutes_1.default);
+router.use('/books', bookRoutes_1.default);
+router.use('/users', userRoutes_1.default);
+router.use('/books/:bookId/reviews', reviewRoutes_1.default);
+router.use('/books/:bookId/ratings', ratingRoutes_1.default);
+router.use('/orders', paymentRoutes_1.default);
+exports.default = router;

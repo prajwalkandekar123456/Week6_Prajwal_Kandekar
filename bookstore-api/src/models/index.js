@@ -1,0 +1,35 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Payment = exports.Rating = exports.Review = exports.User = exports.Book = exports.Author = exports.sequelize = void 0;
+const database_1 = __importDefault(require("../config/database"));
+exports.sequelize = database_1.default;
+const author_1 = __importDefault(require("./author"));
+exports.Author = author_1.default;
+const book_1 = __importDefault(require("./book"));
+exports.Book = book_1.default;
+const user_1 = __importDefault(require("./user"));
+exports.User = user_1.default;
+const review_1 = __importDefault(require("./review"));
+exports.Review = review_1.default;
+const rating_1 = __importDefault(require("./rating"));
+exports.Rating = rating_1.default;
+const payment_1 = __importDefault(require("./payment"));
+exports.Payment = payment_1.default;
+author_1.default.initModel(database_1.default);
+book_1.default.initModel(database_1.default);
+user_1.default.initModel(database_1.default);
+review_1.default.initModel(database_1.default);
+rating_1.default.initModel(database_1.default);
+payment_1.default.initModel(database_1.default);
+// Associations
+book_1.default.belongsToMany(author_1.default, { through: "BookAuthors" });
+author_1.default.belongsToMany(book_1.default, { through: "BookAuthors" });
+review_1.default.belongsTo(book_1.default, { foreignKey: "bookId" });
+review_1.default.belongsTo(user_1.default, { foreignKey: "userId" });
+rating_1.default.belongsTo(book_1.default, { foreignKey: "bookId" });
+rating_1.default.belongsTo(user_1.default, { foreignKey: "userId" });
+payment_1.default.belongsTo(user_1.default, { foreignKey: "userId" });
+payment_1.default.belongsTo(book_1.default, { foreignKey: "bookId" });
